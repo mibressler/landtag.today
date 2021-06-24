@@ -95,23 +95,18 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    data: () => ({
+      cards: ['in parlamentarischer Beratung', 'Beratung abgeschlossen'],
+      drawer: null,
+      // links: [
+        //['mdi-inbox-arrow-down', 'Inbox'],
+        //['mdi-send', 'Send'],
+        //['mdi-delete', 'Trash'],
+        //['mdi-alert-octagon', 'Spam'],
+     // ],
+    }),
   }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  
+</script>
