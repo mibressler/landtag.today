@@ -7,10 +7,10 @@
           >
             <v-card>
               <v-subheader>{{ card }}</v-subheader>
-
               <v-list two-line>
-                <template v-for="n in testgesetze">
-                  <v-list-item
+                <div v-for="n in gesetzjson" :key="n[0]">
+                <template v-if="n.beratung == 'aktiv'" >
+                  <v-list-item 
 
                     :key="n"
                   >
@@ -18,10 +18,10 @@
                     </v-list-item-avatar>
 
                     <v-list-item-content>
-                      <v-list-item-title>{{n.name }}</v-list-item-title>
+                      <v-list-item-title>{{n.content}}</v-list-item-title>
 
                       <v-list-item-subtitle>
-                        Näheres zum Gesetz
+                        {{n.title}} vom {{n.date}}
                       </v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
@@ -32,6 +32,7 @@
                     inset
                   ></v-divider>
                 </template>
+                </div>
               </v-list>
             </v-card>
           </v-col>
@@ -40,26 +41,36 @@
 
 <script>
 
-import json from './assets/gesetze.json'
+import json from './gesetze.json';
 
 
+const gesetzjson = JSON.parse(JSON.stringify(json));
 
+const aktivegs = [];
+for (let i in gesetzjson) {
+        aktivegs[i] = gesetzjson.i
+}
+alert(gesetzjson)
+
+console.log(gesetzjson[0].title);
 
 export default {
         name: "Gesetze",
-        data: () => ({
-        cards: ['in parlamentarischer Beratung', 'Beratung abgeschlossen'],
-        drawer: null,
-      // links: [
-        //['mdi-inbox-arrow-down', 'Inbox'],
-        //['mdi-send', 'Send'],
-        //['mdi-delete', 'Trash'],
-        //['mdi-alert-octagon', 'Spam'],
-     // ],
-        return {
-                myJson: json
-        }
-    }),
+        data() {
+                return {
+                        cards: ['in parlamentarischer Beratung', 'Beratung abgeschlossen'],
+                        drawer: null,
+                        // links: [
+                         //['mdi-inbox-arrow-down', 'Inbox'],
+                         //['mdi-send', 'Send'],
+                        //['mdi-delete', 'Trash'],
+                          //['mdi-alert-octagon', 'Spam'],
+                         // ],
+                         gesetzjson: gesetzjson,
+                        aktivegs: aktivegs,
+                }
+
+    },
     
   }
 

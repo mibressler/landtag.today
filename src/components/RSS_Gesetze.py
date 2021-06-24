@@ -1,6 +1,8 @@
+
 import feedparser
 import re
 import json
+
 
 feed = feedparser.parse(
     "https://www.bayern.landtag.de/webangebot2/rss/feed.rss?art=GESETZ&titel=Drucksachen+von+Gesetzentw%C3%BCrfen")
@@ -21,7 +23,7 @@ print("----------")
 for i in range(len(feed.entries)):
     entry = feed.entries[i]
     gesetze.update({i: {"title": entry.title, "content": entry.summary, "date": entry.published,
-                        "mappe": entry.links[0].href, "status": "unbekannt", "beratung": "unbekannt"}})
+                        "mappe": entry.links[0].href, "status": "unbekannt", "beratung": "unbekannt","shorttitle";"unbekannt"}})
     if re.match(r"^Gesetzentwurf", entry.title):
         gesetze[i]["status"] = "eingebracht"
     if re.match(r"^Beschlussempfehlung", entry.title):
@@ -45,5 +47,4 @@ for i in range(len(gesetze)):
         print(gesetze[i])
 
 """
-
 
