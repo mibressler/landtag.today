@@ -1,15 +1,40 @@
 <template>
   <v-row>
           <v-col
-            v-for="card in cards"
-            :key="card"
             cols="12"
           >
             <v-card>
-              <v-subheader>{{ card }}</v-subheader>
+              <v-subheader>in parlamentarischer Beratung</v-subheader>
               <v-list two-line>
                 <div v-for="n in gesetzjson" :key="n[0]">
-                <template v-if="n.beratung == 'aktiv'" >
+                <template >
+                  <v-list-item 
+
+                    :key="n"
+                  >
+                    <v-list-item-avatar color="grey darken-1">
+                    </v-list-item-avatar>
+
+                    <v-list-item-content>
+                      <v-list-item-title><a :href="n.mappe" :target="_blank"> {{n.content}} </a> </v-list-item-title>
+
+                      <v-list-item-subtitle>
+                        {{n.title}} vom {{n.date}}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                 
+                </template>
+                </div>
+              </v-list>
+            </v-card>
+        
+        <v-card>
+              <v-subheader>Beratung abgeschlossen</v-subheader>
+              <v-list two-line>
+                <div v-for="n in gesetzjson" :key="n[0]">
+                <template >
                   <v-list-item 
 
                     :key="n"
@@ -27,14 +52,13 @@
                   </v-list-item>
 
                   <v-divider
-                    v-if="n !== 6"
-                    :key="`divider-${n}`"
-                    inset
+                   
                   ></v-divider>
                 </template>
                 </div>
               </v-list>
             </v-card>
+
           </v-col>
         </v-row>
 </template>
@@ -45,14 +69,6 @@ import json from './gesetze.json';
 
 
 const gesetzjson = JSON.parse(JSON.stringify(json));
-
-const aktivegs = [];
-for (let i in gesetzjson) {
-        aktivegs[i] = gesetzjson.i
-}
-alert(gesetzjson)
-
-console.log(gesetzjson[0].title);
 
 export default {
         name: "Gesetze",
@@ -66,16 +82,24 @@ export default {
                         //['mdi-delete', 'Trash'],
                           //['mdi-alert-octagon', 'Spam'],
                          // ],
-                         gesetzjson: gesetzjson,
-                        aktivegs: aktivegs,
+                        gesetzjson: gesetzjson,
                 }
 
-    },
+        },
+        methods: {
+                activeLaws(arr) {
+                        arr = arr.filter(n => n.beratung == "active")
+                        return arr
+       }
+        }
     
   }
 
 </script>
 
 <style scoped>
+a {
+        text-decoration: none;
+}
 
 </style>
