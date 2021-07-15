@@ -17,7 +17,10 @@
 
                     <v-list-item-content>
                       <v-list-item-title><a :href="n.mappe" :target="_blank"> {{n.content}} </a> </v-list-item-title>
-
+                        <v-chip-group>
+                          <v-chip>{{ n. beratung }}</v-chip>
+                          <v-chip>{{ n. status }}</v-chip>
+                        </v-chip-group>
                       <v-list-item-subtitle>
                         {{n.title}} vom {{n.date}}
                       </v-list-item-subtitle>
