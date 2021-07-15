@@ -2,6 +2,15 @@
 import feedparser
 import re
 import json
+import urllib.request
+
+
+def download_file(download_url, filename):
+    response = urllib.request.urlopen(download_url)
+    file = open(filename + ".pdf", 'wb')
+    file.write(response.read())
+    file.close()
+
 
 def shortTitle(str):
         short = str
@@ -30,7 +39,7 @@ gesetze = {}
 print("----------")
 for i in range(len(feed.entries)):
     entry = feed.entries[i]
-    gesetze.update({i: {"title": entry.title, "content": entry.summary, "date": entry.published,
+    gesetze.update({i: {"title": entry.title, "content": entry.summary, "date": entry.published_parsed,
                         "mappe": entry.links[0].href, "status": "unbekannt", "beratung": "unbekannt","shorttitle":shortTitle(entry.summary)}})
     if re.match(r"^Gesetzentwurf", entry.title):
         gesetze[i]["status"] = "eingebracht"
@@ -44,12 +53,14 @@ for i in range(len(feed.entries)):
     else:
         gesetze[i]["beratung"] = "abgeschlossen"
     print(gesetze[i])
+    download_file(gesetze[i]["mappe"],str(i))
 
 print(gesetze)
 
 def dumpAll(allgesetze):
         with open("gesetze.json", "w") as fp:
                 json.dump(allgesetze, fp)
+
 
 print("SO")
 print(gesetze)
@@ -81,12 +92,13 @@ def dumpInActive(ingesetze):
 
 
 
-#dumpAll(gesetze)
-dumpActive(gesetze)
+dumpAll(gesetze)
+# dumpActive(gesetze)
 
 
 #print(gesetze)
 #dumpInActive(gesetze)
+
 
 """
 for i in range(len(gesetze)):
