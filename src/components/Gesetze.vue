@@ -19,8 +19,8 @@
                       <v-list-item-title><a :href="n.mappe" :target="_blank"> {{n.content}} </a> </v-list-item-title>
                         <v-chip-group>
                           <v-chip outlined>{{ n. beratung }}</v-chip>
-                          <v-chip>{{ n. status }}</v-chip>
-                          <v-chip 
+                          <v-chip label>{{ n. status }}</v-chip>
+                          <v-chip outlined 
                                 ><a href="0.pdf" target="_blank">PDF</a></v-chip>
                         </v-chip-group>
                       <v-list-item-subtitle>
